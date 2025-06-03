@@ -1,0 +1,39 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: Check version change
+
+on:
+  workflow_call:
+    inputs:
+      CSPROJ_PATH:
+        description: 'Path to the .csproj that should be checked'
+        required: true
+        type: string
+    outputs:
+      version_changed:
+        description: "'true' if the version changed, 'false' otherwise"
+        value: ${{ jobs.check_version.outputs.version_changed }}
+
+jobs:
+  check_version:
+    
+    name: Check version
+    runs-on: ubuntu-latest
+    outputs:
+      version_changed: ${{ steps.version_check.outputs.version_changed }}
+    
+    steps:
+    - uses: actions/checkout@v4
+      with: 
+        fetch-depth: 2
+    - name: Checkout HEAD
+      run: git checkout HEAD
+    - name: Check if version changed
+      id: version_check
+      run: |
+        if git diff -G "<Version>" -r HEAD^:${{ inputs.CSPROJ_PATH }} HEAD:${{ inputs.CSPROJ_PATH }} | grep "<Version>"; then
+            echo "version_changed=true" >> "$GITHUB_OUTPUT"
+        else
+            echo "version_changed=false" >> "$GITHUB_OUTPUT"
+        fi
