@@ -34,7 +34,7 @@ jobs:
       with:
         dotnet-version: 9.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore ${{ inputs.CSPROJ_PATH }} --force
     - name: Pack
       run: dotnet pack ${{ inputs.CSPROJ_PATH }} --no-restore --configuration Release -o ${{ github.workspace }}/.nupkg
     - name: Extract package-id and version
