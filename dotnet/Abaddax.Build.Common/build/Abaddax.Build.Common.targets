@@ -1,0 +1,60 @@
+<Project>
+  <!-- See https://aka.ms/dotnet/msbuild/customize for more details on customizing your build -->
+
+  <!-- Project properties check-->
+  <Target Name="CheckProjectProperties"
+          BeforeTargets="Build">
+    <Error Condition="$(PackageLicenseFile)=='' And $(PackageLicenseExpression)==''"
+           Text="Please specify a LICENSE via &lt;PackageLicenseFile&gt;...&lt;PackageLicenseFile/&gt; or &lt;PackageLicenseExpression&gt;...&lt;PackageLicenseExpression/&gt;"/>
+  </Target>
+
+  <!-- Helper -->
+  <Target Name="FindGitRootDir">
+    <Exec Command="git rev-parse --show-toplevel" ConsoleToMSBuild="true">
+      <Output TaskParameter="ConsoleOutput"
+              PropertyName="GitRootDir"/>
+    </Exec>
+    <Message Text="Git root folder: $(GitRootDir)" Importance="High"/>
+  </Target>
+
+  <!-- Enforce Gitignore -->
+  <Target Name="CheckGitIgnoreAtGitRoot"
+          Condition="$(AbaddaxEnforceGitignore)=='true'"
+          DependsOnTargets="FindGitRootDir
+          " BeforeTargets="BeforeRebuild">
+    <Message Text="Checking for .gitignore at git root..." Importance="High"/>
+    <Exec Command="dotnet new gitignore"
+          Condition="!Exists('$(GitRootDir)/.gitignore')"
+          WorkingDirectory="$(GitRootDir)"/>
+  </Target>
+
+  <!-- Enforce EditorConfig-->
+  <Target Name="CheckForEditorConfig"
+          Condition="$(AbaddaxEnforceEditorConfig)=='true'"
+          DependsOnTargets="FindGitRootDir"
+          BeforeTargets="BeforeBuild">
+    <Message Text="Copy .editorconfig to git root..." Importance="High"/>
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)../contentFiles/.editorconfig"
+          DestinationFiles="$(GitRootDir)/.editorconfig"
+          SkipUnchangedFiles="true"/>
+  </Target>
+  <Target Name="EnsureEditorconfigIgnored"
+          Condition="$(AbaddaxEnforceEditorConfig)=='true' And Exists('$(GitRootDir)/.gitignore')"
+          DependsOnTargets="FindGitRootDir"
+          AfterTargets="CheckForEditorConfig">
+    <Message Text="Checking '/.editorconfig' in .gitignore..." Importance="High"/>
+    <ReadLinesFromFile File="$(GitRootDir)/.gitignore">
+      <Output TaskParameter="Lines"
+              ItemName="GitIgnoreLines"/>
+    </ReadLinesFromFile>
+    <Message Text="Adding '/.editorconfig' to .gitignore..." Importance="High"
+             Condition="@(GitIgnoreLines->AnyHaveMetadataValue('Identity', '/.editorconfig')) != 'true'"/>
+    <WriteLinesToFile
+      Condition="@(GitIgnoreLines->AnyHaveMetadataValue('Identity', '/.editorconfig')) != 'true'"
+      File="$(GitRootDir)/.gitignore"
+      Lines="# Added by Abaddax.Build.Common;/.editorconfig"
+      Overwrite="false"
+      Encoding="UTF-8"/>
+  </Target>
+
+</Project>

@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <Import Project="build\Abaddax.Build.Common.props"/>
+    <Import Project="build\Abaddax.Build.Common.targets"/>
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <IsAnalyzer>true</IsAnalyzer>
+        <DevelopmentDependency>true</DevelopmentDependency>
+        <Version>0.0.1-preview1</Version>
+        <Description>Shared build-settings for my projects</Description>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <NoBuild>true</NoBuild>
+        <IncludeBuildOutput>false</IncludeBuildOutput>
+        <IncludeSymbols>false</IncludeSymbols>
+        <IncludeSource>false</IncludeSource>
+        <EnableDefaultItems>false</EnableDefaultItems>
+        <NoDefaultExcludes>true</NoDefaultExcludes>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <AbaddaxEnforceEditorConfig>false</AbaddaxEnforceEditorConfig>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="build/**" Pack="true" PackagePath="build/"/>
+        <None Include="buildMultiTargeting/**" Pack="true" PackagePath="buildMultiTargeting/"/>
+        <None Include="../../.editorconfig" Pack="true" PackagePath="contentFiles/"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.14.15">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+</Project>

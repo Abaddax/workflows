@@ -1,0 +1,24 @@
+name: Publish
+
+on:
+  push:
+    branches: [ "master" ]
+    paths:
+      - "**/*.csproj"
+
+jobs:
+  check_version:    
+    uses: Abaddax/workflows/.github/workflows/dotnet.check_version.yml@master
+    with:
+      CSPROJ_PATH: dotnet/Abaddax.Build.Common/Abaddax.Build.Common.csproj
+       
+  publish_nuget:
+    needs: [check_version]
+    if: needs.check_version.outputs.version_changed == 'true'
+    uses: Abaddax/workflows/.github/workflows/dotnet.publish_nuget.yml@master
+    with:
+      CSPROJ_PATH: dotnet/Abaddax.Build.Common/Abaddax.Build.Common.csproj
+    permissions:
+      contents: write
+    secrets:
+      NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
