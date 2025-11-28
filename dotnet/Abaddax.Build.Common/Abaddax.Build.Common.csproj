@@ -7,7 +7,7 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <IsAnalyzer>true</IsAnalyzer>
         <DevelopmentDependency>true</DevelopmentDependency>
-        <Version>0.0.1-preview2</Version>
+        <Version>0.0.1-preview3</Version>
         <Description>Shared build-settings for my projects</Description>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <NoBuild>true</NoBuild>
