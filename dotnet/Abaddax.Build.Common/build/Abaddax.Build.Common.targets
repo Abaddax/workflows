@@ -4,7 +4,7 @@
   <!-- Project properties check-->
   <Target Name="CheckProjectProperties"
           BeforeTargets="BeforeBuild">
-    <Error Condition="$(Authors)==''"
+    <Error Condition="$(Authors)=='' or $(Authors)==$(PackageId)"
            Text="Please specify an author via &lt;Authors&gt;...&lt;Authors/&gt;"/>
     <Error Condition="$(PackageLicenseFile)=='' And $(PackageLicenseExpression)==''"
            Text="Please specify a LICENSE via &lt;PackageLicenseFile&gt;...&lt;PackageLicenseFile/&gt; or &lt;PackageLicenseExpression&gt;...&lt;PackageLicenseExpression/&gt;"/>

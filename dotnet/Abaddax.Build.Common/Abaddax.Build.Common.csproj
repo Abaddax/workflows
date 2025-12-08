@@ -1,33 +1,34 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-        <IsAnalyzer>true</IsAnalyzer>
-        <DevelopmentDependency>true</DevelopmentDependency>
-        <Version>0.0.1-preview4</Version>
-        <Description>Shared build-settings for my projects</Description>
-        <RepositoryUrl>https://github.com/Abaddax/workflows.git</RepositoryUrl>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <NoBuild>true</NoBuild>
-        <IncludeBuildOutput>false</IncludeBuildOutput>
-        <IncludeSymbols>false</IncludeSymbols>
-        <IncludeSource>false</IncludeSource>
-        <EnableDefaultItems>false</EnableDefaultItems>
-        <NoDefaultExcludes>true</NoDefaultExcludes>
-    </PropertyGroup>
+  <PropertyGroup>
+    <AbaddaxDefaults>false</AbaddaxDefaults>
+    <AbaddaxEnforceEditorConfig>false</AbaddaxEnforceEditorConfig>
+  </PropertyGroup>
 
-    <PropertyGroup>
-        <AbaddaxDefauls>false</AbaddaxDefauls>
-        <AbaddaxEnforceEditorConfig>false</AbaddaxEnforceEditorConfig>
-    </PropertyGroup>
+  <Import Project="build\Abaddax.Build.Common.props" />
+  <Import Project="build\Abaddax.Build.Common.targets" />  
 
-    <ItemGroup>
-        <None Include="build/**" Pack="true" PackagePath="build/" />
-        <None Include="buildMultiTargeting/**" Pack="true" PackagePath="buildMultiTargeting/" />
-        <None Include="../../.editorconfig" Pack="true" PackagePath="contentFiles/" />
-    </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <IsAnalyzer>true</IsAnalyzer>
+    <DevelopmentDependency>true</DevelopmentDependency>
+    <Version>0.0.1-preview4</Version>
+    <Description>Shared build-settings for my projects</Description>
+    <Authors>Abaddax</Authors>
+    <RepositoryUrl>https://github.com/Abaddax/workflows.git</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <NoBuild>true</NoBuild>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <IncludeSymbols>false</IncludeSymbols>
+    <IncludeSource>false</IncludeSource>
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <NoDefaultExcludes>true</NoDefaultExcludes>
+  </PropertyGroup>
 
-    <Import Project="build\Abaddax.Build.Common.props" />
-    <Import Project="build\Abaddax.Build.Common.targets" />
+  <ItemGroup>
+    <None Include="build/**" Pack="true" PackagePath="build/" />
+    <None Include="buildMultiTargeting/**" Pack="true" PackagePath="buildMultiTargeting/" />
+    <None Include="../../.editorconfig" Pack="true" PackagePath="contentFiles/" />
+  </ItemGroup>
 
 </Project>

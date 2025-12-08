@@ -18,14 +18,14 @@
 
   <!--Optional switches-->
   <PropertyGroup>
-    <AbaddaxDefauls Condition="$(AbaddaxDefauls)==''">true</AbaddaxDefauls>
+    <AbaddaxDefaults Condition="$(AbaddaxDefaults)==''">true</AbaddaxDefaults>
     <AbaddaxEnforceGitignore Condition="$(AbaddaxEnforceGitignore)==''">true</AbaddaxEnforceGitignore>
-    <AbaddaxEnforceEditorConfig Condition="$(AbaddaxEnforceEditorConfig)==''">true</AbaddaxEnforceEditorConfig>
-  </PropertyGroup>
+    <AbaddaxEnforceEditorConfig Condition="$(AbaddaxEnforceEditorConfig)==''">true</AbaddaxEnforceEditorConfig>  
+</PropertyGroup>
 
-  <PropertyGroup Condition="$(AbaddaxDefauls)=='true'">
+  <PropertyGroup Condition="$(AbaddaxDefaults)=='true'">
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>true</Nullable>
+    <Nullable>enable</Nullable>
     <WarningsAsErrors>$(WarningsAsErrors);Nullable</WarningsAsErrors>
   </PropertyGroup>
 
