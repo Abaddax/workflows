@@ -3,9 +3,8 @@
     <RootNamespace>$(MSBuildProjectName)</RootNamespace>
     <AssemblyName>$(MSBuildProjectName)</AssemblyName>
     <PackageId>$(MSBuildProjectName)</PackageId>
-    <Authors>Abaddax</Authors>
-    <Company></Company>
-    <Copyright>Abaddax</Copyright>
+    <Copyright Condition="$(Copyright)==''">$(Authors)</Copyright>
+    <RepositoryType>git</RepositoryType>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <IncludeSymbols>true</IncludeSymbols>
     <IncludeSource>true</IncludeSource>
@@ -19,8 +18,15 @@
 
   <!--Optional switches-->
   <PropertyGroup>
-    <AbaddaxEnforceGitignore>true</AbaddaxEnforceGitignore>
-    <AbaddaxEnforceEditorConfig>true</AbaddaxEnforceEditorConfig>
+    <AbaddaxDefauls Condition="$(AbaddaxDefauls)==''">true</AbaddaxDefauls>
+    <AbaddaxEnforceGitignore Condition="$(AbaddaxEnforceGitignore)==''">true</AbaddaxEnforceGitignore>
+    <AbaddaxEnforceEditorConfig Condition="$(AbaddaxEnforceEditorConfig)==''">true</AbaddaxEnforceEditorConfig>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(AbaddaxDefauls)=='true'">
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>true</Nullable>
+    <WarningsAsErrors>$(WarningsAsErrors);Nullable</WarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
