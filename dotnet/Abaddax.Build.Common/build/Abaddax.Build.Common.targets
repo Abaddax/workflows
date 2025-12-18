@@ -1,6 +1,22 @@
 <Project>
   <!-- See https://aka.ms/dotnet/msbuild/customize for more details on customizing your build -->
 
+  <!--AbaddaxDefaults-->
+  <PropertyGroup Condition="$(AbaddaxDefaults)=='true'">
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <WarningsAsErrors>$(WarningsAsErrors);Nullable</WarningsAsErrors>
+  </PropertyGroup>
+
+  <!--ExternalPackageLicenseFile-->
+  <PropertyGroup Condition="$(ExternalPackageLicenseFile)!=''">
+    <PackageLicenseFile>$([System.IO.Path]::GetFileName('$(ExternalPackageLicenseFile)'))</PackageLicenseFile>
+  </PropertyGroup>
+  <ItemGroup Condition="$(ExternalPackageLicenseFile)!=''">
+    <None Include="$(ExternalPackageLicenseFile)" Pack="true" PackagePath="" />
+  </ItemGroup>
+
   <!-- Project properties check-->
   <Target Name="CheckProjectProperties"
           BeforeTargets="BeforeBuild">
@@ -26,15 +42,15 @@
            Text="The project is not inside a git-repository. Please initalize a new git-repository using 'git init'."/>
     <Message Text="Git root folder: $(GitRootDir)" Importance="High"/>
     <PropertyGroup>
-      <RelativeProjectDirToGitRootDir>$(ProjectDir.Replace('\', '/').Replace('$(GitRootDir)', ''))</RelativeProjectDirToGitRootDir>
+      <RelativeProjectDirToGitRootDir>$(MSBuildProjectDirectory.Replace('\', '/').Replace('$(GitRootDir)', ''))</RelativeProjectDirToGitRootDir>
     </PropertyGroup>
    
     <Message Text="Relative project dir: $(RelativeProjectDirToGitRootDir)" Importance="High"/>
   </Target>
 
-  <!-- Enforce Gitignore -->
+  <!-- EnforceGitignore -->
   <Target Name="CheckGitIgnoreAtGitRoot"
-          Condition="$(AbaddaxEnforceGitignore)=='true'"
+          Condition="$(EnforceGitignore)=='true'"
           DependsOnTargets="FindGitRootDir"
           BeforeTargets="BeforeBuild">
     <Message Text="Checking for .gitignore at git root..." Importance="High"/>
@@ -43,30 +59,30 @@
           WorkingDirectory="$(GitRootDir)"/>
   </Target>
 
-  <!-- Enforce EditorConfig-->
+  <!-- EnforceEditorConfig-->
   <Target Name="CheckForEditorConfig"
-          Condition="$(AbaddaxEnforceEditorConfig)=='true'"
+          Condition="$(EnforceEditorConfig)=='true'"
           DependsOnTargets="FindGitRootDir"
           BeforeTargets="BeforeBuild">
     <Message Text="Copy .editorconfig to project..." Importance="High"/>
     <Copy SourceFiles="$(MSBuildThisFileDirectory)../contentFiles/.editorconfig"
-          DestinationFiles="$(ProjectDir).editorconfig"
+          DestinationFiles="$(MSBuildProjectDirectory)/.editorconfig"
           SkipUnchangedFiles="true"/>
     <CallTarget Targets="EnsureEditorConfigIgnored"/>
   </Target>
   <Target Name="EnsureEditorConfigIgnored"
-          Condition="$(AbaddaxEnforceEditorConfig)=='true' And Exists('$(GitRootDir)/.gitignore')"
+          Condition="$(EnforceEditorConfig)=='true' And Exists('$(GitRootDir)/.gitignore')"
           DependsOnTargets="FindGitRootDir">
-    <Message Text="Checking '/.editorconfig' in .gitignore..." Importance="High"/>
+    <Message Text="Checking '$(RelativeProjectDirToGitRootDir)/.editorconfig' in .gitignore..." Importance="High"/>
     <ReadLinesFromFile File="$(GitRootDir)/.gitignore">
       <Output TaskParameter="Lines"
               ItemName="GitIgnoreLines"/>
     </ReadLinesFromFile>
-    <Message Text="Adding '$(RelativeProjectDirToGitRootDir).editorconfig' to .gitignore..." Importance="High"
-             Condition="@(GitIgnoreLines->AnyHaveMetadataValue('Identity', '$(RelativeProjectDirToGitRootDir).editorconfig')) != 'true'"/>
+    <Message Text="Adding '$(RelativeProjectDirToGitRootDir)/.editorconfig' to .gitignore..." Importance="High"
+             Condition="@(GitIgnoreLines->AnyHaveMetadataValue('Identity', '$(RelativeProjectDirToGitRootDir)/.editorconfig')) != 'true'"/>
     <WriteLinesToFile File="$(GitRootDir)/.gitignore"
-                      Condition="@(GitIgnoreLines->AnyHaveMetadataValue('Identity', '$(RelativeProjectDirToGitRootDir).editorconfig')) != 'true'"      
-                      Lines="# Added by Abaddax.Build.Common;$(RelativeProjectDirToGitRootDir).editorconfig"
+                      Condition="@(GitIgnoreLines->AnyHaveMetadataValue('Identity', '$(RelativeProjectDirToGitRootDir)/.editorconfig')) != 'true'"
+                      Lines="# Added by Abaddax.Build.Common;$(RelativeProjectDirToGitRootDir)/.editorconfig"
                       Overwrite="false"
                       Encoding="UTF-8"/>
   </Target>

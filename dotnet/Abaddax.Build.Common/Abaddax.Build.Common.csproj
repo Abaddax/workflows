@@ -1,10 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <AbaddaxDefaults>false</AbaddaxDefaults>
-    <AbaddaxEnforceEditorConfig>false</AbaddaxEnforceEditorConfig>
-  </PropertyGroup>
-
   <Import Project="build\Abaddax.Build.Common.props" />
   <Import Project="build\Abaddax.Build.Common.targets" />  
 
@@ -23,6 +18,8 @@
     <IncludeSource>false</IncludeSource>
     <EnableDefaultItems>false</EnableDefaultItems>
     <NoDefaultExcludes>true</NoDefaultExcludes>
+    <AbaddaxDefaults>false</AbaddaxDefaults>
+    <EnforceEditorConfig>false</EnforceEditorConfig>
   </PropertyGroup>
 
   <ItemGroup>
