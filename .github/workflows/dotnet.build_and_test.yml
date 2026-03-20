@@ -31,7 +31,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: ${{ join(fromJson(inputs.DOTNET_VERSION), ', ') }}
+        dotnet-version: ${{ fromJson(inputs.DOTNET_VERSION) }}
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
