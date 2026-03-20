@@ -44,7 +44,7 @@
     <PropertyGroup>
       <RelativeProjectDirToGitRootDir>$(MSBuildProjectDirectory.Replace('\', '/').Replace('$(GitRootDir)', ''))</RelativeProjectDirToGitRootDir>
     </PropertyGroup>
-   
+
     <Message Text="Relative project dir: $(RelativeProjectDirToGitRootDir)" Importance="High"/>
   </Target>
 
