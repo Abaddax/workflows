@@ -10,11 +10,6 @@ on:
         default: '["ubuntu-latest"]'
         required: false
         type: string
-      DOTNET_VERSION:
-        description: '.NET-SDK versions to install'
-        default: '["8.0.x","9.0.x","10.0.x"]'
-        required: false
-        type: string
 
 jobs:
   build:
@@ -31,7 +26,10 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: ${{ fromJson(inputs.DOTNET_VERSION) }}
+       dotnet-version: |
+          8.0.x
+          9.0.x
+          10.0.x
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
