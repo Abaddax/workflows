@@ -62,9 +62,6 @@ dotnet_property_generation_behavior = prefer_throwing_properties
 # Symbol search
 dotnet_search_reference_assemblies = true
 
-# General
-dotnet_build_property.Nullable = enable
-
 # Using directive preferences
 dotnet_separate_import_directive_groups = false
 dotnet_sort_system_directives_first = false
@@ -345,6 +342,7 @@ dotnet_naming_style.begins_with___pascalcase.capitalization = pascal_case
 #### Diagnostics ####
 
 [*.{cs,vb}]
+#https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/
 dotnet_diagnostic.CA1001.severity = error
 dotnet_diagnostic.CA1008.severity = error
 dotnet_diagnostic.CA1010.severity = warning
@@ -431,6 +429,9 @@ dotnet_diagnostic.CS1584.severity = error
 dotnet_diagnostic.CS1591.severity = suggestion
 dotnet_diagnostic.CS1712.severity = error
 dotnet_diagnostic.CS4014.severity = error
+
+# Microsoft.VisualStudio.Threading.Analyzers (https://github.com/microsoft/vs-threading)
+# https://microsoft.github.io/vs-threading/analyzers/index.html
 dotnet_diagnostic.VSTHRD002.severity = suggestion
 dotnet_diagnostic.VSTHRD003.severity = none
 dotnet_diagnostic.VSTHRD100.severity = error
@@ -441,8 +442,96 @@ dotnet_diagnostic.VSTHRD104.severity = suggestion
 dotnet_diagnostic.VSTHRD105.severity = none
 dotnet_diagnostic.VSTHRD107.severity = error
 dotnet_diagnostic.VSTHRD110.severity = none #CS4014
-dotnet_diagnostic.VSTHRD111.severity = none
+dotnet_diagnostic.VSTHRD111.severity = warning
 dotnet_diagnostic.VSTHRD114.severity = error
-dotnet_diagnostic.VSTHRD200.severity = warning
+dotnet_diagnostic.VSTHRD200.severity = none #ABX0002
+
+# Meziantou.Analyzer (https://github.com/meziantou/Meziantou.Analyzer)
+dotnet_diagnostic.MA0004.severity = none
+dotnet_diagnostic.MA0005.severity = error
+dotnet_diagnostic.MA0007.severity = none
+dotnet_diagnostic.MA0008.severity = none
+dotnet_diagnostic.MA0009.severity = error
+dotnet_diagnostic.MA0010.severity = error
+dotnet_diagnostic.MA0012.severity = error
+dotnet_diagnostic.MA0013.severity = error
+dotnet_diagnostic.MA0014.severity = error
+dotnet_diagnostic.MA0020.severity = none
+dotnet_diagnostic.MA0027.severity = error
+dotnet_diagnostic.MA0032.severity = suggestion
+dotnet_diagnostic.MA0033.severity = error
+dotnet_diagnostic.MA0035.severity = error
+dotnet_diagnostic.MA0036.severity = warning
+dotnet_diagnostic.MA0040.severity = error
+dotnet_diagnostic.MA0042.severity = none #ABX0003
+dotnet_diagnostic.MA0043.severity = warning
+dotnet_diagnostic.MA0044.severity = warning
+dotnet_diagnostic.MA0045.severity = suggestion
+dotnet_diagnostic.MA0047.severity = error
+dotnet_diagnostic.MA0051.severity = suggestion
+MA0051.maximum_lines_per_method = 60
+MA0051.maximum_statements_per_method = 100
+MA0051.skip_local_functions = false
+dotnet_diagnostic.MA0052.severity = warning
+dotnet_diagnostic.MA0056.severity = error
+dotnet_diagnostic.MA0057.severity = error
+dotnet_diagnostic.MA0058.severity = error
+dotnet_diagnostic.MA0059.severity = warning
+dotnet_diagnostic.MA0067.severity = warning
+dotnet_diagnostic.MA0069.severity = error
+dotnet_diagnostic.MA0071.severity = warning
+dotnet_diagnostic.MA0072.severity = error
+dotnet_diagnostic.MA0073.severity = warning
+dotnet_diagnostic.MA0075.severity = warning
+dotnet_diagnostic.MA0076.severity = warning
+dotnet_diagnostic.MA0080.severity = warning
+dotnet_diagnostic.MA0084.severity = warning
+dotnet_diagnostic.MA0090.severity = warning
+dotnet_diagnostic.MA0098.severity = warning
+dotnet_diagnostic.MA0100.severity = error
+dotnet_diagnostic.MA0102.severity = warning
+dotnet_diagnostic.MA0105.severity = warning
+dotnet_diagnostic.MA0106.severity = warning
+dotnet_diagnostic.MA0109.severity = warning
+dotnet_diagnostic.MA0111.severity = warning
+dotnet_diagnostic.MA0112.severity = warning
+dotnet_diagnostic.MA0113.severity = error
+dotnet_diagnostic.MA0114.severity = error
+dotnet_diagnostic.MA0129.severity = error
+dotnet_diagnostic.MA0130.severity = error
+dotnet_diagnostic.MA0134.severity = error
+dotnet_diagnostic.MA0137.severity = none #ABX0002
+dotnet_diagnostic.MA0138.severity = error
+dotnet_diagnostic.MA0140.severity = error
+dotnet_diagnostic.MA0143.severity = error
+dotnet_diagnostic.MA0147.severity = error
+dotnet_diagnostic.MA0152.severity = warning
+dotnet_diagnostic.MA0154.severity = warning
+dotnet_diagnostic.MA0155.severity = error
+dotnet_diagnostic.MA0157.severity = error
+dotnet_diagnostic.MA0159.severity = warning
+dotnet_diagnostic.MA0160.severity = warning
+dotnet_diagnostic.MA0172.severity = error
+dotnet_diagnostic.MA0178.severity = error
+dotnet_diagnostic.MA0180.severity = error
+dotnet_diagnostic.MA0185.severity = warning
+dotnet_diagnostic.MA0192.severity = warning
+dotnet_diagnostic.MA0191.severity = suggestion
+dotnet_diagnostic.MA0201.severity = error
+dotnet_diagnostic.MA0202.severity = error
+dotnet_diagnostic.MA0206.severity = warning
+
+# (Abaddax.Roslyn.Analyzers) https://github.com/Abaddax/Abaddax.Roslyn.Analyzers
+dotnet_diagnostic.ABX0001.severity = error
+dotnet_code_quality.ABX0001.ignore_controllers = true
+dotnet_code_quality.ABX0001.ignore_tests = true
+dotnet_diagnostic.ABX0002.severity = error
+dotnet_code_quality.ABX0002.ignore_tests = true
+dotnet_diagnostic.ABX0003.severity = warning
+dotnet_diagnostic.ABX0004.severity = error
+dotnet_diagnostic.ABX0005.severity = error
+dotnet_code_quality.ABX1001.enabled = true
+dotnet_code_quality.ABX1002.enabled = true
+dotnet_code_quality.ABX1003.enabled = true
 
 [*.vb]

@@ -8,6 +8,9 @@
     <LangVersion>latest</LangVersion>
     <WarningsAsErrors>$(WarningsAsErrors);Nullable</WarningsAsErrors>
   </PropertyGroup>
+  <PropertyGroup Condition="$(AbaddaxDefaults)=='true' and $(IsTestProject)=='true'">
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
 
   <!--ExternalPackageLicenseFile-->
   <PropertyGroup Condition="$(ExternalPackageLicenseFile)!=''">
@@ -19,6 +22,7 @@
 
   <!-- Project properties check-->
   <Target Name="CheckProjectProperties"
+          Condition="$(IsPackable)!='false'"
           BeforeTargets="BeforeBuild">
     <Error Condition="$(Authors)=='' or $(Authors)==$(PackageId)"
            Text="Please specify an author via &lt;Authors&gt;...&lt;Authors/&gt;"/>
