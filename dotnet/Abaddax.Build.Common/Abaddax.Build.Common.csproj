@@ -7,7 +7,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <IsAnalyzer>true</IsAnalyzer>
     <DevelopmentDependency>true</DevelopmentDependency>
-    <Version>0.0.1-preview9</Version>
+    <Version>0.0.1-preview10</Version>
     <Description>Shared build-settings for my projects</Description>
     <Authors>Abaddax</Authors>
     <RepositoryUrl>https://github.com/Abaddax/workflows.git</RepositoryUrl>
@@ -27,6 +27,25 @@
     <None Include="buildMultiTargeting/**" Pack="true" PackagePath="buildMultiTargeting/" />
     <None Include="../../.editorconfig" Pack="true" PackagePath="contentFiles/" />
     <None Include="README.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.300">
+      <PrivateAssets>none</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.14.15">
+      <PrivateAssets>none</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Meziantou.Analyzer" Version="3.0.142">
+      <PrivateAssets>none</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Abaddax.Roslyn.Analyzers" Version="0.0.1-preview7">
+      <PrivateAssets>none</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>
