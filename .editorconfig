@@ -449,6 +449,7 @@ dotnet_diagnostic.VSTHRD200.severity = none #ABX0002
 # Meziantou.Analyzer (https://github.com/meziantou/Meziantou.Analyzer)
 dotnet_diagnostic.MA0004.severity = none
 dotnet_diagnostic.MA0005.severity = error
+dotnet_diagnostic.MA0006.severity = suggestion
 dotnet_diagnostic.MA0007.severity = none
 dotnet_diagnostic.MA0008.severity = none
 dotnet_diagnostic.MA0009.severity = error
