@@ -26,10 +26,10 @@ on:
         type: boolean
     secrets:
       NUGET_API_KEY:
-        description: 'NuGet API key. Required if "TRUSED_PUBLISHING" is disabled (default)'
+        description: 'NuGet API key. Required if TRUSED_PUBLISHING is disabled (default)'
         required: false
       NUGET_USER:
-        description: 'NuGet username used for Trusted Publishing. Required if "TRUSED_PUBLISHING" is enabled'
+        description: 'NuGet username used for Trusted Publishing. Required if TRUSED_PUBLISHING is enabled'
         required: false
 
 jobs:  
@@ -39,6 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      id-token: write
 
     steps:
     - uses: actions/checkout@v4

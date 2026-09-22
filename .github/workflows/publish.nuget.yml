@@ -1,0 +1,20 @@
+name: Publish NuGet-Package
+
+on:
+  workflow_call:
+    secrets:
+      NUGET_USER:
+        required: true
+  workflow_dispatch:
+
+jobs:  
+  publish_nuget:  
+    uses: Abaddax/workflows/.github/workflows/dotnet.publish_nuget.yml@master
+    with:
+      CSPROJ_PATH: dotnet/Abaddax.Build.Common/Abaddax.Build.Common.csproj
+      TRUSED_PUBLISHING: true
+    permissions:
+      contents: write
+      id-token: write
+    secrets:
+      NUGET_USER: ${{ secrets.NUGET_USER }}
