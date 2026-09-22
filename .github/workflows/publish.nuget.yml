@@ -12,9 +12,7 @@ jobs:
     uses: Abaddax/workflows/.github/workflows/dotnet.publish_nuget.yml@master
     with:
       CSPROJ_PATH: dotnet/Abaddax.Build.Common/Abaddax.Build.Common.csproj
-      TRUSED_PUBLISHING: true
     permissions:
       contents: write
-      id-token: write
     secrets:
-      NUGET_USER: ${{ secrets.NUGET_USER }}
+      NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
