@@ -1,0 +1,17 @@
+# This action will build and test a .NET project
+
+name: Build and test
+description: This action will build and test a .NET project
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Restore dependencies
+      shell: ${{ runner.os == 'Windows' && 'cmd' || 'bash' }}
+      run: dotnet restore
+    - name: Build
+      shell: ${{ runner.os == 'Windows' && 'cmd' || 'bash' }}
+      run: dotnet build --no-restore --configuration Release
+    - name: Test
+      shell: ${{ runner.os == 'Windows' && 'cmd' || 'bash' }}
+      run: dotnet test --no-build --configuration Release --verbosity normal

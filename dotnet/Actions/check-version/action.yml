@@ -1,0 +1,32 @@
+# This action will check if the <Version> of a .NET project changed
+
+name: Check version change
+description: This action will check if the <Version> of a .NET project changed
+
+inputs:
+  CSPROJ_PATH:
+    description: 'Path to the .csproj that should be checked'
+    required: true
+outputs:
+  version_changed:
+    description: "'true' if the version changed, 'false' otherwise"
+    value: ${{ steps.version_check.outputs.version_changed }}
+    
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/checkout@v4
+      with: 
+        fetch-depth: 2
+    - name: Checkout HEAD
+      shell: 'bash'
+      run: git checkout HEAD
+    - name: Check if version changed
+      id: version_check
+      shell: 'bash'
+      run: |
+        if git diff -G "<Version>" -r HEAD^:${{ inputs.CSPROJ_PATH }} HEAD:${{ inputs.CSPROJ_PATH }} | grep "<Version>"; then
+            echo "version_changed=true" >> "$GITHUB_OUTPUT"
+        else
+            echo "version_changed=false" >> "$GITHUB_OUTPUT"
+        fi
